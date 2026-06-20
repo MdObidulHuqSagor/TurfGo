@@ -13,7 +13,7 @@ if ($username === '' || $password === '') {
 
 $db = app_db();
 $stmt = $db->prepare(
-    "SELECT id, role, username, password_hash, full_name, phone_number, profile_image
+    "SELECT id, role, username, password_hash, full_name, phone_number, profile_image, is_active
      FROM users
      WHERE username = ?
      LIMIT 1"
@@ -25,6 +25,10 @@ $stmt->close();
 
 if (!$user || !password_verify($password, $user['password_hash'])) {
     app_json(['ok' => false, 'message' => 'Invalid credentials.'], 401);
+}
+
+if ((int) ($user['is_active'] ?? 1) !== 1) {
+    app_json(['ok' => false, 'message' => 'This account is inactive.'], 403);
 }
 
 session_regenerate_id(true);

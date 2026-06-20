@@ -14,6 +14,7 @@ $division = trim((string) ($_POST['division'] ?? ''));
 $district = trim((string) ($_POST['district'] ?? ''));
 $upazila = trim((string) ($_POST['upazila'] ?? ''));
 $area = trim((string) ($_POST['area'] ?? ''));
+$city = trim((string) ($_POST['city'] ?? ''));
 $addressLine = trim((string) ($_POST['address_line'] ?? ''));
 $username = trim((string) ($_POST['username'] ?? ''));
 $password = (string) ($_POST['password'] ?? '');
@@ -68,17 +69,18 @@ try {
         $district,
         $upazila,
         $area,
+        $city,
         $addressLine,
         $username,
     ]));
 
     $stmt = $db->prepare(
         "INSERT INTO turfs
-            (owner_user_id, turf_name, owner_name, owner_phone, division, district, upazila, area, address_line, price_per_hour, turf_image, search_blob)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            (owner_user_id, turf_name, owner_name, owner_phone, division, district, upazila, area, city, address_line, price_per_hour, turf_image, search_blob)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
     $stmt->bind_param(
-        'issssssssdss',
+        'isssssssssdss',
         $ownerUserId,
         $turfName,
         $ownerName,
@@ -87,6 +89,7 @@ try {
         $district,
         $upazila,
         $area,
+        $city,
         $addressLine,
         $pricePerHour,
         $turfImage,
@@ -117,6 +120,7 @@ try {
             'district' => $district,
             'upazila' => $upazila,
             'area' => $area,
+            'city' => $city,
             'address_line' => $addressLine,
             'price_per_hour' => $pricePerHour,
             'turf_image' => $turfImage,

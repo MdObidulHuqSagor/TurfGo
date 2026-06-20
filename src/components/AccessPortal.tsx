@@ -23,7 +23,7 @@ export default function AccessPortal({ onLogin }: Props) {
         json: login,
       });
       onLogin(data.user.role);
-      window.location.hash = data.user.role === "customer" ? "#home" : "#dashboard";
+      window.location.hash = "#dashboard";
     } catch (error) {
       setMessage(isApiError(error) ? error.message : "Unable to login.");
     } finally {

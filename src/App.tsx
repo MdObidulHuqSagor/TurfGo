@@ -40,8 +40,8 @@ export default function App() {
   if (view === "access") {
     return (
       <AccessPortal
-        onLogin={(role) => {
-          setView(role === "customer" ? "home" : "dashboard");
+        onLogin={() => {
+          setView("dashboard");
         }}
       />
     );
